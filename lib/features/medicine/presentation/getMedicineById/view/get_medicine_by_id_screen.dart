@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_link_supplier/core/constant/color_const.dart';
 
+import '../../../../inventory/presentation/addMedicine/view/add_medicine_screen.dart';
 import '../../deleteMedicine/cubit/delete_medicine_cubit.dart';
 import '../../deleteMedicine/state/delete_medicine_state.dart';
 import '../cubit/get_medicine_by_id_cubit.dart';
@@ -245,6 +246,43 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                       ),
                     ),
                     SizedBox(height: 4),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF5A0B15),
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AddMedicineScreen(id: widget.id),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add, color: Colors.white),
+                            SizedBox(width: 10),
+                            Text(
+                              "Add Medicine",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(

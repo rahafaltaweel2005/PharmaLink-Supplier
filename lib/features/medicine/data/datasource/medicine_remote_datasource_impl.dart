@@ -70,8 +70,6 @@ class MedicineRemoteDatasourceImpl extends MedicineRemoteDatasource {
     required double price,
     required MedicineType type,
   }) async {
-    print('UPDATE API');
-    print('IMAGE = $imageUrl');
 
     final formData = FormData.fromMap({
       'id' : id,

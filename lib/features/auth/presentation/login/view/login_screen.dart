@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma_link_supplier/features/medicine/presentation/getMedicine/view/get_medicines_screen.dart';
 
 import '../../../../../core/constant/color_const.dart';
+import '../../../../order/presentation/getMyOrder/view/get_my_order_screen.dart';
 import '../../../domain/entity/user_role.dart';
 import '../cubit/login_cubit.dart';
 import '../state/login_state.dart';
@@ -179,7 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 10),
                       PharmaButton(
-                        onPressed: isLoading ? null : login,
+                        onPressed: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GetMedicinesScreen()));
+                        },
                         text: "Sing In",
                         buttonIcon: Icons.arrow_forward_ios_rounded,
                       ),

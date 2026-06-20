@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/constant/color_const.dart';
 import '../../../../../core/utils/image_helper.dart';
+import '../../../../inventory/presentation/addMedicine/view/add_medicine_screen.dart';
 import '../../../domain/entity/medicine_entity.dart';
 import '../../../domain/entity/medicine_type.dart';
 import '../cubit/edit_medicine_cubit.dart';
@@ -89,11 +90,9 @@ class _EditMedicineScreenState extends State<EditMedicineScreen> {
       body: BlocConsumer<EditMedicineCubit, EditMedicineState>(
         listener: (context, state) {
           if (state is EditMedicineErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error),
-              ),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.error)));
           }
 
           if (state is EditMedicineSuccessState) {
@@ -324,14 +323,13 @@ class _EditMedicineScreenState extends State<EditMedicineScreen> {
                         return;
                       }
                       context.read<EditMedicineCubit>().editMedicine(
-                          id: widget.id,
+                        id: widget.id,
                         name: nameMedicineController.text,
                         imageUrl: ImageMedicineController.text,
                         price:
                             double.tryParse(priceMedicineController.text) ?? 0,
                         type: selectedType!,
                         description: descriptionMedicineController.text,
-
                       );
                     },
                     child: Row(

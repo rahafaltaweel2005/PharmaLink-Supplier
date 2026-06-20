@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pharma_link_supplier/features/inventory/presentation/addMedicine/view/add_medicine_screen.dart';
 import '../../../../../core/constant/color_const.dart';
 import '../../../../../core/utils/image_helper.dart';
 import '../../../domain/entity/medicine_type.dart';
