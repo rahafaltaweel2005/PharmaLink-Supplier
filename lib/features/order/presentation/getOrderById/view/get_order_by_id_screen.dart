@@ -36,8 +36,10 @@ class _GetOrderByIdScreenState extends State<GetOrderByIdScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final theme = Theme.of(context);
     return BlocListener<UpdateStatusCubit, UpdateStatusState>(
+
       listener: (context, state) {
         if (state is UpdateStatusSuccessState) {
           context.read<GetOrderByIdCubit>().getOrderById(widget.id);
@@ -55,6 +57,7 @@ class _GetOrderByIdScreenState extends State<GetOrderByIdScreen> {
           );
         }
       },
+
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -378,7 +381,7 @@ class _GetOrderByIdScreenState extends State<GetOrderByIdScreen> {
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  state.order.doctorName!,
+                                  state.order.pharmacyName ?? "",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,

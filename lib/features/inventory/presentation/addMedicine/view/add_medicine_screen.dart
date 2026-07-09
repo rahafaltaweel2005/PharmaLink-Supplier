@@ -17,9 +17,9 @@ class AddMedicineScreen extends StatefulWidget {
 
 class _AddMedicineScreenState extends State<AddMedicineScreen> {
   final TextEditingController quantityMedicineController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController expiryDateMedicineController =
-  TextEditingController();
+      TextEditingController();
 
   @override
   void dispose() {
@@ -32,20 +32,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Add Medicine To Inventory",
-          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.5),
-        ),
-
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-
-          icon: const Icon(Icons.close_rounded, size: 26),
-        ),
-      ),
+      appBar: AppBar(),
       body: BlocConsumer<AddMedicineCubit, AddMedicineState>(
         listener: (context, state) {
           if (state is AddMedicineErrorState) {
@@ -73,6 +60,18 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  "Add Medicine To \nInventory",
+
+                  style: TextStyle(
+                    height: 1.1,
+                    fontSize: 44,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConst.primary,
+                    fontFamily: 'Newsreader',
+                  ),
+                ),
+                SizedBox(height: 10),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(10),
@@ -102,7 +101,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                       PharmaTextField(
                         controller: expiryDateMedicineController,
                         title: 'Select expiry Date',
-                        hint: "${DateTime.now()}",
+                        hint:
+                            "${expiryDateMedicineController.text = DateFormat('yyyy-MM-dd').format(DateTime.now())}",
                         prefixIcon: Icons.calendar_month,
                         readOnly: true,
                         onTap: () async {
@@ -119,8 +119,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                             ).format(date);
                           }
                         },
-
-
                       ),
                       const SizedBox(height: 30),
                       SizedBox(
@@ -156,7 +154,9 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                             print(expiryDateMedicineController.text);
                             context.read<AddMedicineCubit>().addMedicine(
                               medicineId: widget.id,
-                              quantity: int.parse(quantityMedicineController.text),
+                              quantity: int.parse(
+                                quantityMedicineController.text,
+                              ),
                               expiryDate: DateTime.parse(
                                 expiryDateMedicineController.text,
                               ),
@@ -168,7 +168,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                               const Icon(Icons.add, color: Colors.white),
                               const SizedBox(width: 10),
                               const Text(
-                                "add Medicine",
+                                "Add Medicine",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
@@ -181,13 +181,9 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                       ),
                     ],
                   ),
-
                 ),
-
-
-
-            ],
-                        ),
+              ],
+            ),
           );
         },
       ),

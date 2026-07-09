@@ -56,13 +56,13 @@ class AuthResponseModel {
 
   UserRole _mapRole(int role) {
     switch (role) {
-      case 1:
+      case 0:
         return UserRole.admin;
 
-      case 2:
+      case 1:
         return UserRole.pharmacist;
 
-      case 3:
+      case 2:
         return UserRole.supplier;
 
       default:

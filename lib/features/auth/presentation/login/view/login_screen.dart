@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma_link_supplier/features/medicine/presentation/getMedicine/view/get_medicines_screen.dart';
-
+import 'package:flutter_svg/svg.dart';
+import 'package:pharma_link_supplier/features/home/presentation/view/home_screen.dart';
 import '../../../../../core/constant/color_const.dart';
-import '../../../../order/presentation/getMyOrder/view/get_my_order_screen.dart';
-import '../../../domain/entity/user_role.dart';
+import '../../../../../core/constant/svg_const.dart';
 import '../cubit/login_cubit.dart';
 import '../state/login_state.dart';
 import '../widget/pharma_button.dart';
@@ -36,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void login() {
+  Future<void> login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
@@ -46,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ).showSnackBar(const SnackBar(content: Text("Please fill all fields")));
       return;
     }
-
     context.read<LoginCubit>().login(email: email, password: password);
   }
 
@@ -75,27 +73,13 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
         if (state is LoginSuccessState) {
-          final role = state.loginResponse.role;
-
-          if (role == UserRole.admin) {
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => AdminScreen(),
-            //   ),
-            // );
-          } else if (role == UserRole.supplier) {
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => SupplierScreen(),
-            //   ),
-            // );
-          }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen(role: state.loginResponse.role)),
+          );
         }
       },
       builder: (context, state) {
-        final bool isLoading = state is LoginLoadingState;
         return Scaffold(
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
@@ -104,6 +88,27 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Container(
+                  width: 130,
+                  height: 130,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+
+                    border: Border.all(color: ColorConst.border, width: 1),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.04),
+                        blurRadius: 24,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+
+                  child: SvgPicture.asset(SvgConst.pharmaLinkLogo),
+                ),
                 Text(
                   "Welcome back",
                   textAlign: TextAlign.center,
@@ -118,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Access your premium pharmacy dashboard",
+                  "Access your pharmacy dashboard",
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w700,
@@ -153,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       PharmaTextField(
                         controller: emailController,
                         title: 'Email Address',
-                        hint: 'supplier.smith@pharmalink.com',
+                        hint: 'example@pharmalink.com',
                         prefixIcon: Icons.mail_outline,
                         obscureText: false,
                       ),
@@ -181,10 +186,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 10),
                       PharmaButton(
-                        onPressed: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GetMedicinesScreen()));
+                        onPressed: () {
+                          print("before login method");
+                          login();
                         },
-                        text: "Sing In",
+                        text: "Sign In",
                         buttonIcon: Icons.arrow_forward_ios_rounded,
                       ),
                     ],

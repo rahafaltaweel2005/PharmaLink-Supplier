@@ -8,12 +8,14 @@ class OrderRemoteDatasourceImpl extends OrderRemoteDatasource {
   @override
   Future<OrderModel> getOrderById({required int orderId}) async {
     final response = await ApiClient.get(endpoint: ApiConst.order(orderId));
+    print(response.data);
     return OrderModel.fromJson(response.data as Map<String, dynamic>);
   }
 
   @override
   Future<List<OrderModel>> getOrders() async {
     final response = await ApiClient.get(endpoint: ApiConst.supplierOrder);
+    print(response.data);
     final data = response.data as List;
     return data
         .map((order) => OrderModel.fromJson(order as Map<String, dynamic>))

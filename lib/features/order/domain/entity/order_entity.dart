@@ -7,7 +7,7 @@ class OrderEntity {
   final DateTime orderDate;
   final DateTime? deliveryTime;
   final String? notes;
-  final String? doctorName;
+  final String? pharmacyName;
   final double totalPrice;
   final StatusOrder status;
   final List<OrderItemEntity> orderItems;
@@ -17,7 +17,7 @@ class OrderEntity {
     required this.orderDate,
     this.notes,
     required this.deliveryTime,
-    required this.doctorName,
+     this.pharmacyName,
     required this.totalPrice,
     required this.status,
     required this.orderItems,

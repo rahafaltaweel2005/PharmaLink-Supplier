@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma_link_supplier/features/auth/domain/usecase/get_profile_use_case.dart';
 import 'package:pharma_link_supplier/features/auth/presentation/login/view/login_screen.dart';
+import 'package:pharma_link_supplier/features/dashboard/data/datasource/Dashboard_remote_datasource.dart';
+import 'package:pharma_link_supplier/features/dashboard/data/datasource/Dashboard_remote_datasource_impl.dart';
+import 'package:pharma_link_supplier/features/dashboard/data/repository/dashboard_repository_impl.dart';
+import 'package:pharma_link_supplier/features/dashboard/domain/repository/dashboard_repository.dart';
+import 'package:pharma_link_supplier/features/dashboard/domain/usecase/get_dashboard_use_case.dart';
+import 'package:pharma_link_supplier/features/dashboard/presentation/dashboard/cubit/dashboard_cubit.dart';
 import 'package:pharma_link_supplier/features/inventory/data/datasource/inventory_remote_datasource_impl.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/addMedicine/cubit/add_medicine_cubit.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/getMainInventory/cubit/get_main_inventory_cubit.dart';
@@ -12,7 +19,15 @@ import 'core/network/api_client.dart';
 import 'features/auth/data/datasource/auth_remote_datasource_impl.dart';
 import 'features/auth/data/repository/auth_repository_impl.dart';
 import 'features/auth/domain/usecase/login_use_case.dart';
+import 'features/auth/domain/usecase/logout_use_case.dart';
+import 'features/auth/domain/usecase/register_use_case.dart';
 import 'features/auth/presentation/login/cubit/login_cubit.dart';
+import 'features/auth/presentation/logout/cubit/logout_cubit.dart';
+import 'features/auth/presentation/profile/cubit/profile_cubit.dart';
+import 'features/auth/presentation/profile/view/profile_screen.dart';
+import 'features/auth/presentation/register/cubit/register_cubit.dart';
+import 'features/auth/presentation/register/view/register_screen.dart';
+import 'features/dashboard/presentation/dashboard/view/dashboard_screen.dart';
 import 'features/inventory/data/repository/inventory_repository_impl.dart';
 import 'features/inventory/domain/usecase/add_medicine_use_case.dart';
 import 'features/inventory/domain/usecase/get_main_inventory_use_case.dart';
@@ -45,21 +60,16 @@ void main() {
     authRemoteDatasource: authRemoteDatasource,
   );
 
+  final loginUseCase = LoginUseCase(authRepository: authRepository);
+  final logoutUseCase = LogoutUseCase(authRepository: authRepository);
+  final registerUsecase = RegisterUseCase(authRepository: authRepository);
+  final profileUsecase = GetProfileUseCase(authRepository: authRepository);
+
   final medicineRemoteDatasource = MedicineRemoteDatasourceImpl();
   final medicineRepository = MedicineRepositoryImpl(
     medicineRemoteDatasource: medicineRemoteDatasource,
   );
-  final orderRemoteDatasource = OrderRemoteDatasourceImpl();
 
-  final orderRepository = OrderRepositoryImpl(
-    orderRemoteDatasource: orderRemoteDatasource,
-  );
-  final inventoryRemoteDatasource = InventoryRemoteDatasourceImpl();
-
-  final inventoryRepository = InventoryRepositoryImpl(
-    inventoryRemoteDatasource: inventoryRemoteDatasource,
-  );
-  final loginUseCase = LoginUseCase(authRepository: authRepository);
   final getMedicinesUseCase = GetMedicinesUseCase(
     medicineRepository: medicineRepository,
   );
@@ -75,6 +85,12 @@ void main() {
   final deleteMedicineUseCase = DeleteMedicineUseCase(
     medicineRepository: medicineRepository,
   );
+
+  final orderRemoteDatasource = OrderRemoteDatasourceImpl();
+  final orderRepository = OrderRepositoryImpl(
+    orderRemoteDatasource: orderRemoteDatasource,
+  );
+
   final getOrdersUseCase = GetOrdersUseCase(orderRepository: orderRepository);
   final getOrderByIdUseCase = GetOrderByIdUseCase(
     orderRepository: orderRepository,
@@ -82,16 +98,42 @@ void main() {
   final updateStatusUseCase = UpdateStatusUseCase(
     orderRepository: orderRepository,
   );
+
+  final inventoryRemoteDatasource = InventoryRemoteDatasourceImpl();
+
+  final inventoryRepository = InventoryRepositoryImpl(
+    inventoryRemoteDatasource: inventoryRemoteDatasource,
+  );
+
   final getMainInventoryUseCase = GetMainInventoryUseCase(
     inventoryRepository: inventoryRepository,
   );
   final addMedicineUseCase = AddMedicineUseCase(
     inventoryRepository: inventoryRepository,
   );
+
+  final dashboardRemoteDatasource = DashboardRemoteDatasourceImpl();
+
+  final dashboardRepository = DashboardRepositoryImpl(
+      dashboardRemoteDatasource: dashboardRemoteDatasource
+  );
+
+  final getDashboardUseCase = GetDashboardUseCase(
+  dashboardRepository: dashboardRepository
+  );
+
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LoginCubit(loginUseCase: loginUseCase)),
+        BlocProvider(create: (_) => LogoutCubit(logoutUseCase: logoutUseCase)),
+        BlocProvider(
+          create: (_) => RegisterCubit(registerUseCase: registerUsecase),
+        ),
+        BlocProvider(
+          create: (_) => ProfileCubit(getProfileUseCase: profileUsecase),
+        ),
         BlocProvider(
           create: (_) =>
               GetMedicineCubit(getMedicinesUseCase: getMedicinesUseCase),
@@ -128,9 +170,15 @@ void main() {
           create: (_) => GetMainInventoryCubit(
             getMainInventoryUseCase: getMainInventoryUseCase,
           ),
-        ),BlocProvider(
+        ),
+        BlocProvider(
           create: (_) => AddMedicineCubit(
             addMedicineUseCase: addMedicineUseCase,
+          ),
+        ),
+        BlocProvider(
+          create: (_) => DashboardCubit(
+            getDashboardUseCase: getDashboardUseCase,
           ),
         ),
       ],

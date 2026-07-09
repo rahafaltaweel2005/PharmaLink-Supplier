@@ -200,7 +200,28 @@ class PharmaCard extends StatelessWidget {
                       ),
                   ],
                 ),
+                Row(
+                  children: [
 
+                    Text(
+                      'Pharmacy Name: ',
+
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: ColorConst.neutral,
+                      ),
+                    ),Text(
+                      order.pharmacyName ?? " ",
+
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: ColorConst.neutral,
+                      ),
+                    ),
+                  ],
+                ),
                 Row(
                   children: [
                     Text(
@@ -224,30 +245,9 @@ class PharmaCard extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 14),
+                const SizedBox(height: 3),
 
-                Row(
-                  children: [
 
-                    Text(
-                     'Doctor Name: ',
-
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: ColorConst.neutral,
-                      ),
-                    ),Text(
-                      order.doctorName!,
-
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: ColorConst.neutral,
-                      ),
-                    ),
-                  ],
-                ),
                 Row(
                   children: [
                     Text(
@@ -273,7 +273,7 @@ class PharmaCard extends StatelessWidget {
                 Text(
                   '\$${order.totalPrice.toStringAsFixed(2)}',
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: ColorConst.primary,
                   ),

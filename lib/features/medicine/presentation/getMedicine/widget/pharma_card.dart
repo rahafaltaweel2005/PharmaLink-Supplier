@@ -12,6 +12,7 @@ class PharmaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final imagePath = medicine.imageUrl;
     final isNetworkImage =
         imagePath.startsWith('http://') || imagePath.startsWith('https://');

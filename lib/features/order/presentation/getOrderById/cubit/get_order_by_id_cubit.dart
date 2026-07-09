@@ -13,6 +13,7 @@ class GetOrderByIdCubit extends Cubit<GetOrderByIdState> {
 
   Future<void> getOrderById(int id) async {
     emit(GetOrderByIdLoadingState());
+
     try {
       final result = await getOrderByIdUseCase(orderId: id);
       emit((GetOrderByIdLoadedState(order: result)));

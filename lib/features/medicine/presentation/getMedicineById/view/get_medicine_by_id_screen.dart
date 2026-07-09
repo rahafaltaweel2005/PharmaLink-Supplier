@@ -48,24 +48,13 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
           );
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Details Medicine",
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              color: ColorConst.primary,
-              letterSpacing: 1,
-            ),
-          ),
-        ),
-        body: BlocBuilder<GetMedicineByIdCubit, GetMedicineByIdState>(
+      child:  BlocBuilder<GetMedicineByIdCubit, GetMedicineByIdState>(
           builder: (context, state) {
             if (state is GetMedicineByIdLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
             if (state is GetMedicineByIdErrorState) {
-              return Center(
+             Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
@@ -82,25 +71,29 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                   imagePath.startsWith('http://') ||
                   imagePath.startsWith('https://');
               final isLocalImage = imagePath.startsWith('/');
-              return SingleChildScrollView(
+              return  Scaffold(
+                appBar: AppBar(
+                  title: Text(
+                    state.medicine.name,
+                    style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: ColorConst.primary,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ),
+            body:SingleChildScrollView(
                 padding: const EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Medicine Image",
-                      style: const TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF5A0B15),
-                      ),
-                    ),
+
                     isLocalImage
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(28),
                             child: Image.file(
                               File(imagePath),
-                              height: 280,
+                              height: 200,
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
@@ -110,13 +103,13 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                             borderRadius: BorderRadius.circular(28),
                             child: Image.network(
                               imagePath,
-                              height: 280,
+                              height: 200,
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
                           )
                         : Container(
-                            height: 280,
+                            height: 200,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(28),
@@ -130,7 +123,25 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                               ),
                             ),
                           ),
-                    const SizedBox(height: 22),
+                    const SizedBox(height: 14),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 22,
+                        vertical: 14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF5A0B15),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Text(
+                        '\$${state.medicine.price.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 26),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -152,48 +163,10 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                     ),
                     const SizedBox(height: 14),
                     Text(
-                      state.medicine.name,
-                      style: const TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF5A0B15),
-                      ),
-                    ),
-                    const SizedBox(height: 18),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 22,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF5A0B15),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Text(
-                        '\$${state.medicine.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 26),
-                    const Text(
-                      "PRODUCT DESCRIPTION",
-
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 1.2,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF7B706D),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
                       state.medicine.description ?? "",
                       style: const TextStyle(
-                        height: 1.4,
-                        fontSize: 14,
+                        height: 1.5,
+                        fontSize: 17,
                         color: Color(0xFF6B615E),
                       ),
                     ),
@@ -250,10 +223,14 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF5A0B15),
+                          backgroundColor:   Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color:Color(0xFF5A0B15),
+                            ),
                             borderRadius: BorderRadius.circular(50),
+
                           ),
                         ),
                         onPressed: () {
@@ -268,14 +245,15 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add, color: Colors.white),
+                            Icon(Icons.add,  color:Color(0xFF5A0B15)),
                             SizedBox(width: 10),
                             Text(
                               "Add Medicine",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                                color:Color(0xFF5A0B15),
+
                               ),
                             ),
                           ],
@@ -366,12 +344,12 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
                     ),
                   ],
                 ),
+              )
               );
             }
             return SizedBox(child: Text("Something wrong"));
           },
         ),
-      ),
-    );
+      );
   }
 }

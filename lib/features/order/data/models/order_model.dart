@@ -12,7 +12,7 @@ class OrderModel {
   String? deliveryTime;
   int? status;
   double? totalPrice;
-  String? doctorName;
+  String? pharmacyName;
   List<OrderItemModel>? orderItems;
 
   OrderModel({
@@ -22,7 +22,7 @@ class OrderModel {
     this.deliveryTime,
     this.status,
     this.totalPrice,
-    this.doctorName,
+    this.pharmacyName,
     this.orderItems,
   });
 
@@ -33,7 +33,7 @@ class OrderModel {
     deliveryTime = json['deliveryTime'];
     status = json['status'];
     totalPrice = json['totalPrice'];
-    doctorName = json['doctorName'];
+    pharmacyName = json['pharmacyName'];
     if (json['orderItems'] != null) {
       orderItems = <OrderItemModel>[];
       json['orderItems'].forEach((v) {
@@ -50,7 +50,7 @@ class OrderModel {
     data['deliveryTime'] = this.deliveryTime;
     data['status'] = this.status;
     data['totalPrice'] = this.totalPrice;
-    data['doctorName'] = this.doctorName;
+    data['pharmacyName'] = this.pharmacyName;
     if (this.orderItems != null) {
       data['orderItems'] = this.orderItems!.map((v) => v.toJson()).toList();
     }
@@ -63,7 +63,7 @@ class OrderModel {
       orderDate: DateTime.parse(orderDate!),
       notes: notes,
       deliveryTime: deliveryTime != null ? DateTime.parse(deliveryTime!) : null,
-      doctorName: doctorName ?? "",
+      pharmacyName: pharmacyName ?? "",
       totalPrice: totalPrice!,
       status: _status(status!),
       orderItems: orderItems!.map((item) => item.toEntity()).toList(),

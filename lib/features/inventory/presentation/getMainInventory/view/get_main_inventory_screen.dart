@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/getMainInventory/cubit/get_main_inventory_cubit.dart';
 import 'package:pharma_link_supplier/features/medicine/presentation/getMedicineById/view/get_medicine_by_id_screen.dart';
 
+import '../../../../auth/presentation/login/widget/pharma_text_field.dart';
+import '../../../domain/entity/inventory_entity.dart';
 import '../state/get_main_inventory_state.dart';
 import '../widget/pharma_card.dart';
 
@@ -14,6 +16,10 @@ class GetMainInventoryScreen extends StatefulWidget {
 }
 
 class _GetMainInventoryScreenState extends State<GetMainInventoryScreen> {
+  TextEditingController searchController = TextEditingController();
+  List<InventoryEntity> allInventory = [];
+  List<InventoryEntity> filteredInventory = [];
+
   @override
   void initState() {
     super.initState();
@@ -21,24 +27,22 @@ class _GetMainInventoryScreenState extends State<GetMainInventoryScreen> {
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void search(String searchController) {
+    setState(() {
+      filteredInventory = allInventory.where((inventory) {
+        return inventory.medicineName.toLowerCase().contains(searchController.toLowerCase());
+      }).toList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Inventory",
-          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.5),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search_rounded, size: 26),
-          ),
-        ],
-      ),
-
-      body: BlocConsumer<GetMainInventoryCubit, GetMainInventoryState>(
-        listener: (context, state) {},
-
+    return  BlocBuilder<GetMainInventoryCubit, GetMainInventoryState>(
         builder: (context, state) {
           if (state is GetMainInventoryLoadingState) {
             return const Center(child: CircularProgressIndicator());
@@ -64,6 +68,10 @@ class _GetMainInventoryScreenState extends State<GetMainInventoryScreen> {
           }
 
           if (state is GetMainInventoryLoadedState) {
+            if (allInventory.isEmpty) {
+              allInventory = state.inventory;
+              filteredInventory = state.inventory;
+            }
             final inventory = state.inventory;
 
             if (inventory.isEmpty) {
@@ -80,62 +88,78 @@ class _GetMainInventoryScreenState extends State<GetMainInventoryScreen> {
               );
             }
 
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
+            return Column(
+              children: [
+                PharmaTextField(
+                  controller: searchController,
+                  hint: "Search by medicine name",
+                  prefixIcon: Icons.search_outlined,
+                  obscureText: false,
+                  onChange: (value) {
+                    search(value ?? "");
+                  },
+                ),
 
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
+                Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
 
-              itemCount: inventory.length,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
 
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 14),
+                    itemCount: filteredInventory.length,
 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 14),
 
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.04),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
 
-                  child: Material(
-                    color: Theme.of(context).colorScheme.surface,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.04),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
 
-                    borderRadius: BorderRadius.circular(30),
+                        child: Material(
+                          color: Theme.of(context).colorScheme.surface,
 
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () async {
-                       await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => GetMedicineByIdScreen(
-                              id: state.inventory[index].medicineId,
+                          borderRadius: BorderRadius.circular(30),
+
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(30),
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => GetMedicineByIdScreen(
+                                    id: filteredInventory[index].medicineId,
+                                  ),
+                                ),
+                              );
+                              context
+                                  .read<GetMainInventoryCubit>()
+                                  .getMainInventory();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: PharmaCard(
+                                inventory: filteredInventory[index],
+                              ),
                             ),
                           ),
-                        );
-                        context
-                            .read<GetMainInventoryCubit>()
-                            .getMainInventory();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: PharmaCard(
-                          inventory: state.inventory[index],
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+              ],
             );
           }
           return const SizedBox(
@@ -151,7 +175,8 @@ class _GetMainInventoryScreenState extends State<GetMainInventoryScreen> {
             ),
           );
         },
-      ),
-    );
+
+      );
+
   }
 }
