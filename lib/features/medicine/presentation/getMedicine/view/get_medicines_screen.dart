@@ -21,18 +21,23 @@ class _GetMedicinesScreenState extends State<GetMedicinesScreen> {
   TextEditingController searchController = TextEditingController();
   List<MedicineEntity> allMedicine = [];
   List<MedicineEntity> filteredMedicine = [];
+
   @override
   void initState() {
     super.initState();
     context.read<GetMedicineCubit>().getMedicines();
   }
+
   void search(String searchController) {
     setState(() {
       filteredMedicine = allMedicine.where((medicine) {
-        return medicine.name.toLowerCase().contains(searchController.toLowerCase());
+        return medicine.name.toLowerCase().contains(
+          searchController.toLowerCase(),
+        );
       }).toList();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetMedicineCubit, GetMedicineState>(
@@ -61,6 +66,18 @@ class _GetMedicinesScreenState extends State<GetMedicinesScreen> {
         }
 
         if (state is GetMedicineLoadedState) {
+          allMedicine = List.from(state.medicines);
+
+          if (searchController.text.isEmpty) {
+            filteredMedicine = List.from(state.medicines);
+          } else {
+            filteredMedicine = filteredMedicine = allMedicine.where((medicine) {
+              return medicine.name.toLowerCase().contains(
+                searchController.text.toLowerCase(),
+              );
+            }).toList();
+          }
+
           if (allMedicine.isEmpty) {
             allMedicine = state.medicines;
             filteredMedicine = state.medicines;

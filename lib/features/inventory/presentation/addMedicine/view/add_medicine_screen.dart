@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../../../../../core/constant/color_const.dart';
+import '../../../../dashboard/presentation/dashboard/cubit/dashboard_cubit.dart';
+import '../../getMainInventory/cubit/get_main_inventory_cubit.dart';
 import '../cubit/add_medicine_cubit.dart';
 import '../state/add_medicine_state.dart';
 import '../widget/pharma_text_field.dart';
@@ -48,6 +50,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
             );
           }
           if (state is AddMedicineSuccessState) {
+            context.read<GetMainInventoryCubit>().getMainInventory();
+            context.read<DashboardCubit>().dashboard();
             Navigator.pop(context, true);
           }
         },

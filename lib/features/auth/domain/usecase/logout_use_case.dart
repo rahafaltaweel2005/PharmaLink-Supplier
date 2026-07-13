@@ -6,7 +6,8 @@ class LogoutUseCase {
 
   LogoutUseCase({required this.authRepository});
 
-  Future<void> call()  {
-    return authRepository.logout();
+  Future<void> call(String refreshToken){
+    print("UseCase");
+    return authRepository.logout(refreshToken);
   }
 }

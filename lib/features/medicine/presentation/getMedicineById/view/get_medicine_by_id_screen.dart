@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_link_supplier/core/constant/color_const.dart';
 
+import '../../../../dashboard/presentation/dashboard/cubit/dashboard_cubit.dart';
 import '../../../../inventory/presentation/addMedicine/view/add_medicine_screen.dart';
 import '../../deleteMedicine/cubit/delete_medicine_cubit.dart';
 import '../../deleteMedicine/state/delete_medicine_state.dart';
@@ -32,6 +33,7 @@ class _GetMedicineByIdScreenState extends State<GetMedicineByIdScreen> {
     return BlocListener<DeleteMedicineCubit, DeleteMedicineState>(
       listener: (context, state) {
         if (state is DeleteMedicineSuccessState) {
+          context.read<DashboardCubit>().dashboard();
           Navigator.pop(context);
           Navigator.pop(context, true);
         }

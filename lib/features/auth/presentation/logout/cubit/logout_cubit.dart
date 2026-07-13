@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/constant/app_const.dart';
 import '../../../../../core/storage/secure_storage_helper.dart';
 import '../../../domain/usecase/logout_use_case.dart';
 import '../state/logout_state.dart';
@@ -10,7 +11,14 @@ class LogoutCubit extends Cubit<LogoutState> {
   Future<void> logout() async {
     emit(LogoutLoadingState());
     try {
-      await logoutUseCase.call();
+
+      final refreshToken = await SecureStorageHelper.read(
+        key: AppConst.refreshTokenKey,
+      );
+      print("Cubit");
+      print("Token = $refreshToken");
+
+      await logoutUseCase.call(refreshToken!);
       await SecureStorageHelper.deleteAll();
 
       emit(LogoutSuccessState());

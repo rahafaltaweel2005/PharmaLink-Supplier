@@ -1,4 +1,3 @@
-
 import 'package:pharma_link_supplier/features/auth/domain/entity/profile_entity.dart';
 
 import '../../domain/entity/auth_response_entity.dart';
@@ -21,6 +20,7 @@ class AuthRepositoryImpl implements AuthRepository {
     );
     return model.toEntity();
   }
+
   @override
   Future<AuthResponseEntity> register({
     required String name,
@@ -38,12 +38,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ProfileEntity> profile() async{
-    final model= await authRemoteDatasource.profile();
+  Future<ProfileEntity> profile() async {
+    final model = await authRemoteDatasource.profile();
     return model.toEntity();
   }
+
   @override
-  Future<void> logout() async{
+  Future<void> logout(String refreshToken) async {
+    print("Repository");
     await authRemoteDatasource.logout();
   }
 }

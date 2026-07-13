@@ -1,5 +1,7 @@
+
 enum UserRole {
   admin,
   pharmacist,
-  supplier,
+  supplier;
+
 }

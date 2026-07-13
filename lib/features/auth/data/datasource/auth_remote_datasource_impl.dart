@@ -51,6 +51,7 @@ class AuthRemoteDatasourceImpl extends AuthRemoteDatasource {
       key: AppConst.refreshTokenKey,
     );
     print("refreshToken logout ${refreshToken}");
+    print("RemoteDatasource");
     await ApiClient.post(
       endpoint: ApiConst.logout,
       data: {"refreshToken": refreshToken},

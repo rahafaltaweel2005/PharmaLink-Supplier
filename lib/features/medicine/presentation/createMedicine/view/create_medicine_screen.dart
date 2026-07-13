@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pharma_link_supplier/features/inventory/presentation/addMedicine/view/add_medicine_screen.dart';
 import '../../../../../core/constant/color_const.dart';
 import '../../../../../core/utils/image_helper.dart';
+import '../../../../dashboard/presentation/dashboard/cubit/dashboard_cubit.dart';
 import '../../../domain/entity/medicine_type.dart';
+import '../../getMedicine/cubit/get_medicine_cubit.dart';
 import '../cubit/create_medicine_cubit.dart';
 import '../state/create_medicine_state.dart';
 import '../widget/pharma_text_field.dart';
@@ -69,6 +70,8 @@ class _CreateMedicineScreenState extends State<CreateMedicineScreen> {
             );
           }
           if (state is CreateMedicineSuccessState) {
+            context.read<GetMedicineCubit>().getMedicines();
+            context.read<DashboardCubit>().dashboard();
             Navigator.pop(context, true);
           }
         },

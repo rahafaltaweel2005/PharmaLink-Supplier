@@ -16,5 +16,5 @@ abstract class AuthRepository {
 
   Future<ProfileEntity> profile();
 
-  Future<void> logout();
+  Future<void> logout(String refreshToken);
 }
