@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pharma_link_supplier/features/auth/domain/entity/user_role.dart';
 import 'package:pharma_link_supplier/features/dashboard/presentation/dashboard/view/dashboard_screen.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/getMainInventory/view/get_main_inventory_screen.dart';
+import 'package:pharma_link_supplier/features/pharmacy/presentation/getPharmacies/view/get_pharmacies_screen.dart';
 
 import '../../../../core/constant/color_const.dart';
 import '../../../../core/constant/svg_const.dart';
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             pages = [
               const GetMainInventoryScreen(),
               const GetMedicinesScreen(),
+              const GetPharmaciesScreen(),
               const RegisterScreen(),
               const DashboardScreen(),
             ],
@@ -47,6 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.medication_outlined),
                 label: 'Medicine',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.store_outlined),
+                label: 'Pharmacies',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_add_alt_1_outlined),

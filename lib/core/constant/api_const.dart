@@ -10,6 +10,10 @@ class ApiConst {
   static const String medicine = "/api/Medicine";
   static String medicineById(int id) => "/api/Medicine/$id";
 
+  static const String pharmacies = "/api/Pharmacy/all";
+  static String pharmacyById(int id) => "/api/Pharmacy/$id";
+  static const String updateStatusPharmacy =  "  /api/Pharmacy/update-status";
+
   static String order(int id) => "/api/Order/$id";
   static const String updateStatus =  "/api/Order/update-status";
   static const String supplierOrder = "/api/Order/supplier-orders";

@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_link_supplier/features/auth/domain/usecase/get_profile_use_case.dart';
 import 'package:pharma_link_supplier/features/auth/presentation/login/view/login_screen.dart';
-import 'package:pharma_link_supplier/features/dashboard/data/datasource/Dashboard_remote_datasource.dart';
 import 'package:pharma_link_supplier/features/dashboard/data/datasource/Dashboard_remote_datasource_impl.dart';
 import 'package:pharma_link_supplier/features/dashboard/data/repository/dashboard_repository_impl.dart';
-import 'package:pharma_link_supplier/features/dashboard/domain/repository/dashboard_repository.dart';
 import 'package:pharma_link_supplier/features/dashboard/domain/usecase/get_dashboard_use_case.dart';
 import 'package:pharma_link_supplier/features/dashboard/presentation/dashboard/cubit/dashboard_cubit.dart';
 import 'package:pharma_link_supplier/features/inventory/data/datasource/inventory_remote_datasource_impl.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/addMedicine/cubit/add_medicine_cubit.dart';
 import 'package:pharma_link_supplier/features/inventory/presentation/getMainInventory/cubit/get_main_inventory_cubit.dart';
-import 'package:pharma_link_supplier/features/inventory/presentation/getMainInventory/view/get_main_inventory_screen.dart';
 import 'package:pharma_link_supplier/features/order/domain/usecase/update_status_use_case.dart';
 import 'package:pharma_link_supplier/features/order/presentation/updateStatus/cubit/update_status_cubit.dart';
+import 'package:pharma_link_supplier/features/pharmacy/data/datasource/pharmacy_remote_datasource_impl.dart';
+import 'package:pharma_link_supplier/features/pharmacy/data/repository/pharmacy_repository_impl.dart';
+import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/get_pharmacies_use_case.dart';
+import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/get_pharmacy_by_id_use_case.dart';
+import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/update_status_pharmacy_use_case.dart';
+import 'package:pharma_link_supplier/features/pharmacy/presentation/getOrderById/cubit/get_pharmacy_by_id_cubit.dart';
+import 'package:pharma_link_supplier/features/pharmacy/presentation/updateStatusPharmacy/cubit/update_status_pharmacy_cubit.dart';
 import 'core/app_setting/theme/app_theme.dart';
 import 'core/network/api_client.dart';
 import 'features/auth/data/datasource/auth_remote_datasource_impl.dart';
@@ -24,10 +28,7 @@ import 'features/auth/domain/usecase/register_use_case.dart';
 import 'features/auth/presentation/login/cubit/login_cubit.dart';
 import 'features/auth/presentation/logout/cubit/logout_cubit.dart';
 import 'features/auth/presentation/profile/cubit/profile_cubit.dart';
-import 'features/auth/presentation/profile/view/profile_screen.dart';
 import 'features/auth/presentation/register/cubit/register_cubit.dart';
-import 'features/auth/presentation/register/view/register_screen.dart';
-import 'features/dashboard/presentation/dashboard/view/dashboard_screen.dart';
 import 'features/inventory/data/repository/inventory_repository_impl.dart';
 import 'features/inventory/domain/usecase/add_medicine_use_case.dart';
 import 'features/inventory/domain/usecase/get_main_inventory_use_case.dart';
@@ -42,7 +43,6 @@ import 'features/medicine/presentation/createMedicine/cubit/create_medicine_cubi
 import 'features/medicine/presentation/deleteMedicine/cubit/delete_medicine_cubit.dart';
 import 'features/medicine/presentation/editMedicine/cubit/edit_medicine_cubit.dart';
 import 'features/medicine/presentation/getMedicine/cubit/get_medicine_cubit.dart';
-import 'features/medicine/presentation/getMedicine/view/get_medicines_screen.dart';
 import 'features/medicine/presentation/getMedicineById/cubit/get_medicine_by_id_cubit.dart';
 import 'features/order/data/datasource/order_remote_datasource_impl.dart';
 import 'features/order/data/repository/order_repository_impl.dart';
@@ -50,6 +50,7 @@ import 'features/order/domain/usecase/get_order_by_id_use_case.dart';
 import 'features/order/domain/usecase/get_orders_use_case.dart';
 import 'features/order/presentation/getMyOrder/cubit/get_my_order_cubit.dart';
 import 'features/order/presentation/getOrderById/cubit/get_order_by_id_cubit.dart';
+import 'features/pharmacy/presentation/getPharmacies/cubit/get_pharmacies_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -111,17 +112,31 @@ void main() {
   final addMedicineUseCase = AddMedicineUseCase(
     inventoryRepository: inventoryRepository,
   );
+  final pharmacyRemoteDatasource = PharmacyRemoteDatasourceImpl();
+
+  final pharmacyRepository = PharmacyRepositoryImpl(
+    pharmacyRemoteDatasource: pharmacyRemoteDatasource,
+  );
+
+  final getPharmaciesUseCase = GetPharmaciesUseCase(
+    pharmacyRepository: pharmacyRepository,
+  );
+  final getPharmacyByIdUseCase = GetPharmacyByIdUseCase(
+    pharmacyRepository: pharmacyRepository,
+  );
+  final updateStatusPharmacyUseCase = UpdateStatusPharmacyUseCase(
+    pharmacyRepository: pharmacyRepository,
+  );
 
   final dashboardRemoteDatasource = DashboardRemoteDatasourceImpl();
 
   final dashboardRepository = DashboardRepositoryImpl(
-      dashboardRemoteDatasource: dashboardRemoteDatasource
+    dashboardRemoteDatasource: dashboardRemoteDatasource,
   );
 
   final getDashboardUseCase = GetDashboardUseCase(
-  dashboardRepository: dashboardRepository
+    dashboardRepository: dashboardRepository,
   );
-
 
   runApp(
     MultiBlocProvider(
@@ -172,14 +187,25 @@ void main() {
           ),
         ),
         BlocProvider(
-          create: (_) => AddMedicineCubit(
-            addMedicineUseCase: addMedicineUseCase,
+          create: (_) =>
+              AddMedicineCubit(addMedicineUseCase: addMedicineUseCase),
+        ),
+        BlocProvider(
+          create: (_) =>
+              DashboardCubit(getDashboardUseCase: getDashboardUseCase),
+        ),
+        BlocProvider(
+          create: (_) => GetPharmacyByIdCubit(
+            getPharmacyByIdUseCase: getPharmacyByIdUseCase,
           ),
         ),
         BlocProvider(
-          create: (_) => DashboardCubit(
-            getDashboardUseCase: getDashboardUseCase,
-          ),
+          create: (_) =>
+            GetPharmaciesCubit(getPharmaciesUseCase: getPharmaciesUseCase)
+        ),
+        BlocProvider(
+          create: (_) =>
+             UpdateStatusPharmacyCubit(updateStatusPharmacyUseCase: updateStatusPharmacyUseCase)
         ),
       ],
       child: const MyApp(),
