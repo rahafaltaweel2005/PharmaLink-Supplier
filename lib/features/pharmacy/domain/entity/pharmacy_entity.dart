@@ -5,7 +5,8 @@ class PharmacyEntity {
   final int userId;
   final String name;
   final String userName;
-  final String pharmacyInventories;
+  final String phoneNumber;
+  final int pharmacyInventories;
   final String licenseNumber;
   final String address;
   final String email;
@@ -17,6 +18,7 @@ class PharmacyEntity {
     required this.userId,
     required this.name,
     required this.address,
+    required this.phoneNumber,
     required this.email,
     required this.orderCount,
     required this.status,

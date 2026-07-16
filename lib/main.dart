@@ -16,7 +16,6 @@ import 'package:pharma_link_supplier/features/pharmacy/data/repository/pharmacy_
 import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/get_pharmacies_use_case.dart';
 import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/get_pharmacy_by_id_use_case.dart';
 import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/update_status_pharmacy_use_case.dart';
-import 'package:pharma_link_supplier/features/pharmacy/presentation/getOrderById/cubit/get_pharmacy_by_id_cubit.dart';
 import 'package:pharma_link_supplier/features/pharmacy/presentation/updateStatusPharmacy/cubit/update_status_pharmacy_cubit.dart';
 import 'core/app_setting/theme/app_theme.dart';
 import 'core/network/api_client.dart';
@@ -51,6 +50,7 @@ import 'features/order/domain/usecase/get_orders_use_case.dart';
 import 'features/order/presentation/getMyOrder/cubit/get_my_order_cubit.dart';
 import 'features/order/presentation/getOrderById/cubit/get_order_by_id_cubit.dart';
 import 'features/pharmacy/presentation/getPharmacies/cubit/get_pharmacies_cubit.dart';
+import 'features/pharmacy/presentation/getPharmacyById/cubit/get_pharmacy_by_id_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

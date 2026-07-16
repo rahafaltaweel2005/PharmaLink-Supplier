@@ -29,10 +29,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       listener: (BuildContext context, LogoutState state) {
         if (state is LogoutSuccessState) {
           Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          );
+          Future.delayed(Duration.zero, () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (route) => false,
+            );
+          });
         }
         if (state is LogoutErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(

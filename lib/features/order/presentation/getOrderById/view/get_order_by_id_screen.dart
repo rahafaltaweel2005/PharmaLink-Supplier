@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pharma_link_supplier/features/order/presentation/updateStatus/cubit/update_status_cubit.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-
-import '../../../../../core/constant/color_const.dart';
+  import '../../../../../core/constant/color_const.dart';
 import '../../updateStatus/state/update_status_state.dart';
 import '../cubit/get_order_by_id_cubit.dart';
 import '../state/get_order_by_id_state.dart';
@@ -376,12 +375,12 @@ class _GetOrderByIdScreenState extends State<GetOrderByIdScreen> {
                             Row(
                               children: [
                                 Icon(
-                                  Icons.person_outline,
+                                  Icons.store_outlined,
                                   color: Color(0xFF24190A),
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  state.order.pharmacyName ?? "",
+                                  state.order.pharmacyName??" ",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,

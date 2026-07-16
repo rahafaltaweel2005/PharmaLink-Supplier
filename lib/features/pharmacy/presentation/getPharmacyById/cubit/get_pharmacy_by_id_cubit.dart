@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma_link_supplier/features/pharmacy/domain/usecase/get_pharmacy_by_id_use_case.dart';
-import 'package:pharma_link_supplier/features/pharmacy/presentation/getOrderById/state/get_pharmacy_by_id_state.dart';
 
-
+import '../state/get_pharmacy_by_id_state.dart';
 
 class GetPharmacyByIdCubit extends Cubit<GetPharmacyByIdState> {
   final GetPharmacyByIdUseCase getPharmacyByIdUseCase;

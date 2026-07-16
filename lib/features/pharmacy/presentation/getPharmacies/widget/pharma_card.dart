@@ -207,68 +207,7 @@ class PharmaCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                // if (pharmacy.status == PharmacyStatus.pending)
-                //   Row(
-                //     spacing: 10,
-                //     children: [
-                //       SizedBox(
-                //         width: 140,
-                //         child: ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             backgroundColor: ColorConst.primary,
-                //             shape: RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(30),
-                //             ),
-                //           ),
-                //           onPressed: () {
-                //             context
-                //                 .read<UpdateStatusPharmacyCubit>()
-                //                 .updateStatusPharmacy(
-                //                   pharmacyId: pharmacy.id,
-                //                   status: PharmacyStatus.approved.index,
-                //                 );
-                //           },
-                //           child: Text(
-                //             "Approved",
-                //             style: TextStyle(
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.w700,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       SizedBox(
-                //         width: 140,
-                //
-                //         child: ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             backgroundColor: Colors.white,
-                //             shape: RoundedRectangleBorder(
-                //               side: BorderSide(color: Colors.red),
-                //               borderRadius: BorderRadius.circular(30),
-                //             ),
-                //           ),
-                //           onPressed: () {
-                //             context
-                //                 .read<UpdateStatusPharmacyCubit>()
-                //                 .updateStatusPharmacy(
-                //                   pharmacyId: pharmacy.id,
-                //                   status: PharmacyStatus.rejected.index,
-                //                 );
-                //           },
-                //           child: Text(
-                //             "Rejected",
-                //             style: TextStyle(
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.w700,
-                //               color: Colors.red,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
+
               ],
             ),
           ),

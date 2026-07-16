@@ -6,31 +6,33 @@ class PharmacyModel {
   String? name;
   String? address;
   String? licenseNumber;
+  String? phoneNumber;
   String? email;
   int? status;
   int? userId;
   String? userName;
   int? orderCount;
-  String? pharmacyInventories;
+  int? pharmacyInventories;
 
-  PharmacyModel({
-    this.id,
-    this.name,
-    this.address,
-    this.licenseNumber,
-    this.email,
-    this.status,
-    this.userId,
-    this.userName,
-    this.orderCount,
-    this.pharmacyInventories,
-  });
+  PharmacyModel(
+      {this.id,
+        this.name,
+        this.address,
+        this.licenseNumber,
+        this.phoneNumber,
+        this.email,
+        this.status,
+        this.userId,
+        this.userName,
+        this.orderCount,
+        this.pharmacyInventories});
 
   PharmacyModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     address = json['address'];
     licenseNumber = json['licenseNumber'];
+    phoneNumber = json['phoneNumber'];
     email = json['email'];
     status = json['status'];
     userId = json['userId'];
@@ -40,25 +42,26 @@ class PharmacyModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['address'] = this.address;
-    data['licenseNumber'] = this.licenseNumber;
-    data['email'] = this.email;
-    data['status'] = this.status;
-    data['userId'] = this.userId;
-    data['userName'] = this.userName;
-    data['orderCount'] = this.orderCount;
-    data['pharmacyInventories'] = this.pharmacyInventories;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['address'] = address;
+    data['licenseNumber'] = licenseNumber;
+    data['phoneNumber'] = phoneNumber;
+    data['email'] = email;
+    data['status'] = status;
+    data['userId'] = userId;
+    data['userName'] = userName;
+    data['orderCount'] = orderCount;
+    data['pharmacyInventories'] = pharmacyInventories;
     return data;
   }
-
   PharmacyEntity toEntity() {
     return PharmacyEntity(
       id: id!,
       userId: userId!,
       name: name!,
+      phoneNumber: phoneNumber!,
       address: address!,
       email: email!,
       orderCount: orderCount!,

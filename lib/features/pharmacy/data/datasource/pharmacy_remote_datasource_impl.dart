@@ -29,7 +29,7 @@ class PharmacyRemoteDatasourceImpl extends PharmacyRemoteDatasource {
   }) async {
     await ApiClient.put(
       endpoint: ApiConst.updateStatusPharmacy,
-      data: {'pharmacyId': pharmacyId, 'newStatus': status},
+      data: {"pharmacyId": pharmacyId, "status": status},
     );
   }
 }
