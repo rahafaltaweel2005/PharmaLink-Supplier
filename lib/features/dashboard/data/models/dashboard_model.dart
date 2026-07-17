@@ -27,13 +27,13 @@ class DashboardModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalPharmacies'] = this.totalPharmacies;
-    data['totalMedicines'] = this.totalMedicines;
-    data['totalSuppliers'] = this.totalSuppliers;
-    data['totalOrders'] = this.totalOrders;
-    data['totalInventory'] = this.totalInventory;
-    data['totalPendingOrders'] = this.totalPendingOrders;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['totalPharmacies'] = totalPharmacies;
+    data['totalMedicines'] = totalMedicines;
+    data['totalSuppliers'] = totalSuppliers;
+    data['totalOrders'] = totalOrders;
+    data['totalInventory'] = totalInventory;
+    data['totalPendingOrders'] = totalPendingOrders;
     return data;
   }
 

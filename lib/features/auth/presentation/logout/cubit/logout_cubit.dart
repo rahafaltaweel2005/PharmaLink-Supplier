@@ -15,8 +15,7 @@ class LogoutCubit extends Cubit<LogoutState> {
       final refreshToken = await SecureStorageHelper.read(
         key: AppConst.refreshTokenKey,
       );
-      print("Cubit");
-      print("Token = $refreshToken");
+
 
       await logoutUseCase.call(refreshToken!);
       await SecureStorageHelper.deleteAll();

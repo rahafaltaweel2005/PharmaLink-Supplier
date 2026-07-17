@@ -13,7 +13,6 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.loginUseCase}) : super(LoginInitialState());
 
   Future<void> login({required String email, required String password}) async {
-    print("in cubit 1");
     emit(LoginLoadingState());
     try {
       final result = await loginUseCase(email: email, password: password);

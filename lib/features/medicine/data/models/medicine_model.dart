@@ -28,13 +28,13 @@ import '../../domain/entity/medicine_type.dart';
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['imageUrl'] = this.imageUrl;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['type'] = this.type;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['imageUrl'] = imageUrl;
+    data['name'] = name;
+    data['description'] = description;
+    data['price'] = price;
+    data['type'] = type;
     return data;
   }
 

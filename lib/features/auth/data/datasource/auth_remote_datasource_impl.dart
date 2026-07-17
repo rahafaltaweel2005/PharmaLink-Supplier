@@ -50,8 +50,7 @@ class AuthRemoteDatasourceImpl extends AuthRemoteDatasource {
     final refreshToken = await SecureStorageHelper.read(
       key: AppConst.refreshTokenKey,
     );
-    print("refreshToken logout ${refreshToken}");
-    print("RemoteDatasource");
+
     await ApiClient.post(
       endpoint: ApiConst.logout,
       data: {"refreshToken": refreshToken},

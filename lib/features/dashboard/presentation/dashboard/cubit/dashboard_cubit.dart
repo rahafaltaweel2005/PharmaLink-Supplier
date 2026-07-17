@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma_link_supplier/features/dashboard/domain/entity/dashboard_entity.dart';
 import 'package:pharma_link_supplier/features/dashboard/presentation/dashboard/state/dashboard_state.dart';
 
 import '../../../domain/usecase/get_dashboard_use_case.dart';

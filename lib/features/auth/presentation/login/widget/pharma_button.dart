@@ -16,7 +16,7 @@ class PharmaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 60,
       width: double.infinity,
       child: ElevatedButton(

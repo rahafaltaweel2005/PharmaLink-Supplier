@@ -37,22 +37,22 @@ class OrderModel {
     if (json['orderItems'] != null) {
       orderItems = <OrderItemModel>[];
       json['orderItems'].forEach((v) {
-        orderItems!.add(new OrderItemModel.fromJson(v));
+        orderItems!.add(OrderItemModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['orderId'] = this.orderId;
-    data['notes'] = this.notes;
-    data['orderDate'] = this.orderDate;
-    data['deliveryTime'] = this.deliveryTime;
-    data['status'] = this.status;
-    data['totalPrice'] = this.totalPrice;
-    data['pharmacyName'] = this.pharmacyName;
-    if (this.orderItems != null) {
-      data['orderItems'] = this.orderItems!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['orderId'] = orderId;
+    data['notes'] = notes;
+    data['orderDate'] = orderDate;
+    data['deliveryTime'] = deliveryTime;
+    data['status'] = status;
+    data['totalPrice'] = totalPrice;
+    data['pharmacyName'] = pharmacyName;
+    if (orderItems != null) {
+      data['orderItems'] = orderItems!.map((v) => v.toJson()).toList();
     }
     return data;
   }

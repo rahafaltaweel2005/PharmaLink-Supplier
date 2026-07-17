@@ -24,12 +24,12 @@ class InventoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['medicineId'] = this.medicineId;
-    data['medicineName'] = this.medicineName;
-    data['quantity'] = this.quantity;
-    data['expiryDate'] = this.expiryDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['medicineId'] = medicineId;
+    data['medicineName'] = medicineName;
+    data['quantity'] = quantity;
+    data['expiryDate'] = expiryDate;
     return data;
   }
   InventoryEntity toEntity() {

@@ -1,4 +1,3 @@
-import '../../../domain/entity/medicine_entity.dart';
 
 abstract class  DeleteMedicineState {}
 

@@ -7,9 +7,9 @@ class ProfileModel {
   String? email;
   int? role;
   String? phoneNumber;
-  Null? doctorName;
-  Null? location;
-  Null? licenseNumber;
+  Null doctorName;
+  Null location;
+  Null licenseNumber;
 
   ProfileModel(
       {this.id,
@@ -33,15 +33,15 @@ class ProfileModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['role'] = this.role;
-    data['phoneNumber'] = this.phoneNumber;
-    data['doctorName'] = this.doctorName;
-    data['location'] = this.location;
-    data['licenseNumber'] = this.licenseNumber;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['role'] = role;
+    data['phoneNumber'] = phoneNumber;
+    data['doctorName'] = doctorName;
+    data['location'] = location;
+    data['licenseNumber'] = licenseNumber;
     return data;
   }
 

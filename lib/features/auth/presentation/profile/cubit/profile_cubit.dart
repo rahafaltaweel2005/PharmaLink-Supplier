@@ -13,7 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> profile() async {
     emit(ProfileLoadingState());
-    final token = await SecureStorageHelper.read(
+   await SecureStorageHelper.read(
       key: AppConst.accessTokenKey,
     );
 

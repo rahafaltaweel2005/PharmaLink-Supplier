@@ -31,14 +31,14 @@ class AuthResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['role'] = this.role;
-    data['phoneNumber'] = this.phoneNumber;
-    data['accessToken'] = this.accessToken;
-    data['refreshToken'] = this.refreshToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['role'] = role;
+    data['phoneNumber'] = phoneNumber;
+    data['accessToken'] = accessToken;
+    data['refreshToken'] = refreshToken;
     return data;
   }
 

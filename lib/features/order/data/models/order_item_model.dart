@@ -16,11 +16,11 @@ class  OrderItemModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['medicineId'] = this.medicineId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['medicineId'] = medicineId;
     data['medicineName'] = medicineName;
-    data['quantity'] = this.quantity;
-    data['unitPrice'] = this.unitPrice;
+    data['quantity'] = quantity;
+    data['unitPrice'] = unitPrice;
     return data;
   }
   OrderItemEntity toEntity() {

@@ -1,6 +1,5 @@
 import 'package:pharma_link_supplier/features/auth/domain/entity/profile_entity.dart';
 
-import '../../../domain/entity/auth_response_entity.dart';
 
 abstract class ProfileState {}
 

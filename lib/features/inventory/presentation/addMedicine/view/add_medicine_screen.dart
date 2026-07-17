@@ -106,7 +106,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                         controller: expiryDateMedicineController,
                         title: 'Select expiry Date',
                         hint:
-                            "${expiryDateMedicineController.text = DateFormat('yyyy-MM-dd').format(DateTime.now())}",
+                            expiryDateMedicineController.text = DateFormat('yyyy-MM-dd').format(DateTime.now()),
                         prefixIcon: Icons.calendar_month,
                         readOnly: true,
                         onTap: () async {

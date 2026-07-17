@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/constant/color_const.dart';
 import '../../../../auth/presentation/login/widget/pharma_text_field.dart';
 import '../../../domain/entity/medicine_entity.dart';
 import '../../createMedicine/view/create_medicine_screen.dart';
